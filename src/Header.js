@@ -3,71 +3,71 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./Header.css";
 import Logo from './robinhood.svg';
 import axios from 'axios';
-import BuyOrder from './BuyOrder'; // Import BuyOrder component
-import SellOrder from './SellOrder'; // Import SellOrder component
+import BuyOrder from './BuyOrder'; // Import your BuyOrder component
+import SellOrder from './SellOrder'; // Import your SellOrder component
 
 function Header() {
-  const [ticker, setTicker] = useState(''); // State to hold user input
-  const [searchResult, setSearchResult] = useState([]); // State to hold the fetched stock data
-  const [showBuyOrder, setShowBuyOrder] = useState(false); // State to control BuyOrder visibility
-  const [showSellOrder, setShowSellOrder] = useState(false); // State to control SellOrder visibility
-  const [selectedStock, setSelectedStock] = useState(null); // State to hold selected stock info
+  const [ticker, setTicker] = useState('');
+  const [symbol, setSymbol] = useState('');
+  const [price, setPrice] = useState('');
+  const [name, setName] = useState(''); 
+  const [searchResult, setSearchResult] = useState([]); 
+  const [selectedSymbol, setSelectedSymbol] = useState(''); // Track selected stock symbol
+  const [showBuyPopup, setShowBuyPopup] = useState(false); // Show BuyOrder pop-up
+  const [showSellPopup, setShowSellPopup] = useState(false); // Show SellOrder pop-up
 
-  // Handle input change
   const handleInputChange = (e) => {
     setTicker(e.target.value);
-    fetchStockData(e.target.value); // Fetch results while typing (optional)
+    fetchStockData(e.target.value);
   };
 
-  // Function to fetch stock data
   const fetchStockData = async (query) => {
     try {
       if (query) {
         const response = await axios.get(`http://localhost:5000/api/stock/${query}`);
         if (response.data && response.data.name && response.data.symbol) {
-          setSearchResult([response.data]); // Store the valid result
+          setSearchResult([response.data]); 
         } else {
-          setSearchResult([]); // Clear result if data is null or invalid
+          setSearchResult([]); 
         }
       } else {
-        setSearchResult([]); // Clear results if no query
+        setSearchResult([]);
       }
     } catch (error) {
       console.error('Error fetching stock data:', error);
     }
   };
 
-  // Handle keypress (Enter key)
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       fetchStockData(ticker);
     }
   };
 
-  // Buy button click handler
-  const handleBuy = (stock) => {
-    setSelectedStock(stock); // Set the selected stock to be passed to BuyOrder
-    setShowBuyOrder(true);   // Show the BuyOrder component
-    setShowSellOrder(false); // Hide SellOrder if it was open
+  // Buy button click handler to show BuyOrder pop-up
+  const handleBuy = (symbol,name,price) => {
+    setSelectedSymbol(symbol); // Set selected stock symbol
+    setSymbol(symbol);
+    setName(name);
+    setPrice(price);
+    setShowBuyPopup(true); // Show BuyOrder pop-up
+    setShowSellPopup(false); // Hide SellOrder pop-up if visible
   };
 
-  // Sell button click handler
-  const handleSell = (stock) => {
-    setSelectedStock(stock); // Set the selected stock to be passed to SellOrder
-    setShowSellOrder(true);  // Show the SellOrder component
-    setShowBuyOrder(false);  // Hide BuyOrder if it was open
+  // Sell button click handler to show SellOrder pop-up
+  const handleSell = (symbol,name,price) => {
+    setSelectedSymbol(symbol); // Set selected stock symbol
+    setSymbol(symbol);
+    setName(name);
+    setPrice(price);
+    setShowSellPopup(true); // Show SellOrder pop-up
+    setShowBuyPopup(false); // Hide BuyOrder pop-up if visible
   };
 
-  // Close BuyOrder component
-  const closeBuyOrder = () => {
-    setShowBuyOrder(false);  // Hide the BuyOrder component
-    setSelectedStock(null);  // Clear the selected stock
-  };
-
-  // Close SellOrder component
-  const closeSellOrder = () => {
-    setShowSellOrder(false);  // Hide the SellOrder component
-    setSelectedStock(null);   // Clear the selected stock
+  // Function to close pop-ups
+  const closePopups = () => {
+    setShowBuyPopup(false);
+    setShowSellPopup(false);
   };
 
   return (
@@ -98,9 +98,9 @@ function Header() {
                 </div>
                 <div className="action-buttons">
                   {/* Buy button */}
-                  <button onClick={() => handleBuy(result)} className="buy-btn">Buy</button>
+                  <button onClick={() => handleBuy(result.symbol,result.name,result.currentPrice)} className="buy-btn">Buy</button>
                   {/* Sell button */}
-                  <button onClick={() => handleSell(result)} className="sell-btn">Sell</button>
+                  <button onClick={() => handleSell(result.symbol,result.name,result.currentPrice)} className="sell-btn">Sell</button>
                 </div>
               </li>
             ))}
@@ -112,23 +112,12 @@ function Header() {
         <a href="/">History</a>
       </div>
 
-      {/* Render BuyOrder component if visible */}
-      {showBuyOrder && selectedStock && (
-        <BuyOrder 
-          symbol={selectedStock.symbol} 
-          price={selectedStock.currentPrice} 
-          onClose={closeBuyOrder}  // Pass the close function
-        />
-      )}
+      {/* Pop-up for BuyOrder component */}
+      {showBuyPopup && <BuyOrder buySymbol={symbol} buyName={name} buyPrice={price}/>
+      }
 
-      {/* Render SellOrder component if visible */}
-      {showSellOrder && selectedStock && (
-        <SellOrder 
-          symbol={selectedStock.symbol} 
-          price={selectedStock.currentPrice} 
-          onClose={closeSellOrder}  // Pass the close function
-        />
-      )}
+      {/* Pop-up for SellOrder component */}
+      {showSellPopup && <SellOrder sellSymbol={symbol} sellName={name} sellPrice={price}/>}
     </div>
   );
 }

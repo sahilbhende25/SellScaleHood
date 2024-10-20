@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './SellOrder.css';
 
-function SellOrder() {
-  const [quantity, setQuantity] = useState(3);
-  const [price, setPrice] = useState(1879.6);
+function SellOrder({sellSymbol,sellName,sellPrice}) {
+  const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(sellPrice);
   const [intraday, setIntraday] = useState(false);
   const [selectedExchange, setSelectedExchange] = useState('NSE');
 
@@ -11,7 +11,7 @@ function SellOrder() {
   const amount = quantity * price;
 
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 500, y: 500 });
   const [mouseStart, setMouseStart] = useState({ x: 0, y: 0 });
 
   const startDrag = (e) => {
@@ -35,7 +35,7 @@ function SellOrder() {
   return (
     <div
       className="sell-order-container"
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }} // Fix here: Backticks for template literals
       onMouseDown={startDrag}
       onMouseMove={drag}
       onMouseUp={stopDrag}
@@ -43,7 +43,7 @@ function SellOrder() {
     >
       {/* Stock Info */}
       <div className="stock-info">
-        <h3>INFY</h3>
+        <h3>{sellSymbol}</h3>
         <div className="exchange">
           <label>
             <input
@@ -53,7 +53,7 @@ function SellOrder() {
               checked={selectedExchange === 'BSE'}
               onChange={() => setSelectedExchange('BSE')}
             />
-            BSE ₹1,878.85
+            {sellPrice}
           </label>
           <label>
             <input
@@ -63,7 +63,7 @@ function SellOrder() {
               checked={selectedExchange === 'NSE'}
               onChange={() => setSelectedExchange('NSE')}
             />
-            NSE ₹1,879.60
+            {sellPrice}
           </label>
         </div>
       </div>

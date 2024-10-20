@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './BuyOrder.css';
 
-function BuyOrder() {
+function BuyOrder({buySymbol,buyName,buyPrice}) {
   const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(1879.6);
+  const [price, setPrice] = useState(buyPrice);
   const [intraday, setIntraday] = useState(false);
   const [selectedExchange, setSelectedExchange] = useState('NSE');
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 500, y: 500 });
   const [mouseStart, setMouseStart] = useState({ x: 0, y: 0 });
 
   const charges = 1.95;
@@ -42,7 +42,7 @@ function BuyOrder() {
     >
       {/* Stock Info */}
       <div className="stock-info">
-        <h3>INFY</h3>
+        <h3>{buyName}</h3>
         <div className="exchange">
           <label>
             <input
