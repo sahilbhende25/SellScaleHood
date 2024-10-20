@@ -1,0 +1,24 @@
+/* Main layout container for the app body */
+.app__body {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  /* Portfolio section */
+  .app__portfolio {
+    flex: 1;
+    max-width: 300px;
+    padding-right: 20px;
+    background-color: #1f1f1f;
+    color: white;
+  }
+  
+  /* Chart section */
+  .app__chart {
+    flex: 3;
+    background-color: black;
+    padding-left: 20px;
+  }
+  

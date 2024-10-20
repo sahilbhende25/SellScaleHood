@@ -1,0 +1,137 @@
+/* Portfolio Container */
+.portfolio {
+  width: 250px;
+  background-color: #1f1f1f;
+  color: white;
+  padding: 20px;
+  border-right: 1px solid #333;
+  overflow-y: auto;
+  height: 85vh;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.portfolio__search {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  padding: 15px 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 90%;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.portfolio__search::placeholder {
+  color: #999;
+}
+
+.portfolio__item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  display: flex; /* Flexbox layout */
+  align-items: center;
+  justify-content: space-between; /* Push content to the edges */
+  background-color: #1f1f1f;
+  position: relative;
+  height: 60px;
+}
+
+.portfolio__item:hover {
+  background-color: #2a2a2a;
+  cursor: pointer;
+}
+
+/* Show buttons only on hover */
+.portfolio__item:hover .portfolio__buttons {
+  display: flex;
+}
+
+.portfolio__item:hover .portfolio__price-details {
+  display: none;
+}
+
+.portfolio__ticker {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: inherit;
+  flex: 1; /* This makes the ticker take all available space */
+}
+
+.portfolio__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Price */
+.portfolio__price {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 5px; /* Space between price and change */
+}
+
+.portfolio__price-details {
+  display: flex;
+  flex-direction: column; /* Stack price and change vertically */
+  align-items: flex-end; /* Align to the right */
+  margin-left: auto; /* Push it all the way to the right */
+}
+
+
+.portfolio__percentage {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.portfolio__change {
+  font-size: 0.85rem;
+}
+
+.portfolio__change--positive {
+  color: #4caf50;
+}
+
+.portfolio__change--negative {
+  color: #f44336;
+}
+
+
+/* Buttons Container */
+.portfolio__buttons {
+  display: none;
+  gap: 10px;
+}
+
+/* Buttons Style */
+.portfolio__btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+/* Buy Button */
+/* Buy Button */
+.buy-btn {
+  background-color: #007bff; /* Blue for Buy */
+}
+
+/* Sell Button */
+.sell-btn {
+  background-color: #f44336; /* Red/Orange for Sell */
+}
+
+/* Hover Effect */
+.portfolio__btn:hover {
+  background-color: #555;
+}

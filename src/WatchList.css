@@ -1,0 +1,91 @@
+/* Watchlist Container */
+.watchlist {
+    width: 250px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 20px;
+    border-right: 1px solid #333;
+    height: 90vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .watchlist__search {
+    background-color: #2a2a2a; /* Darker background to match theme */
+    color: #e0e0e0; /* Light text color for contrast */
+    border: 1px solid #444; /* Subtle border */
+    padding: 10px 15px; /* Add padding for cleaner look */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease; /* Smooth border transition on focus */
+  }
+  
+  .watchlist__search::placeholder {
+    color: #999; /* Slightly lighter placeholder text */
+  }
+  
+  /* Focus state */
+  .watchlist__search:focus {
+    border-color: #4caf50; /* Green border when focused */
+  }
+  
+  
+  /* Watchlist Items */
+  .watchlist__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px;
+    border-bottom: 1px solid #3a3a3a;
+    transition: background-color 0.3s ease;
+  }
+  
+  .watchlist__item:hover {
+    background-color: #333;
+    cursor: pointer;
+  }
+  
+  /* Ticker symbol */
+  .watchlist__ticker {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  /* Price and percentage */
+  .watchlist__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .watchlist__price {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  
+  .watchlist__percentage {
+    font-size: 0.85rem;
+    margin-top: 4px;
+    color: #999;
+  }
+  
+  .watchlist__change--positive {
+    color: #4caf50;
+  }
+  
+  .watchlist__change--negative {
+    color: #f44336;
+  }
+  
+  /* Padding and spacing tweaks */
+  .watchlist__details span {
+    margin-bottom: 4px;
+  }
+  
