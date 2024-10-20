@@ -1,0 +1,46 @@
+.portfolio-overview-container {
+    padding: 20px;
+    background-color: #343a40; /* Dark background */
+    color: #f8f9fa; /* Light text */
+  }
+  
+  .portfolio-overview-container .portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .portfolio-overview-container .portfolio-table th,
+  .portfolio-overview-container .portfolio-table td {
+    border: 1px solid #495057; /* Darker border */
+    padding: 8px;
+    text-align: center;
+    color: #f8f9fa; /* Light text for better contrast */
+  }
+  
+  .portfolio-overview-container .portfolio-table th {
+    background-color: #495057; /* Darker table header */
+    color: white;
+  }
+  
+  .portfolio-overview-container .portfolio-table tr:nth-child(even) {
+    background-color: #495057; /* Darker background for table rows */
+  }
+  
+  .text-white {
+    color: #f8f9fa;
+  }
+  
+  /* Update Tab Styles */
+  .MuiTabs-root {
+    color: #f8f9fa; /* Light text for the tabs */
+  }
+  
+  .MuiTabs-indicator {
+    background-color: #007bff; /* Blue for active tab indicator */
+  }
+  
+  .MuiRadio-root, .MuiCheckbox-root {
+    color: #f8f9fa; /* Light radio button and checkbox color */
+  }
+  
+  

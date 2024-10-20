@@ -1,6 +1,8 @@
 import './App.css';
 import Header from "./Header";
 import BuyOrder from "./BuyOrder";
+import SellOrder from "./SellOrder";
+import PortfolioOverview from './PortfolioOverview';
 
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
         <Header />
       </div>
       <div className="app__body">
-        <BuyOrder />
+            {/* <BuyOrder /> */}
+            <PortfolioOverview />
+            {/* <SellOrder /> */}
       </div>
     </div>
   );

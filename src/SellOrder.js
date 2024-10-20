@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import './BuyOrder.css';
+import './SellOrder.css';
 
-function BuyOrder() {
-  const [quantity, setQuantity] = useState(1);
+function SellOrder() {
+  const [quantity, setQuantity] = useState(3);
   const [price, setPrice] = useState(1879.6);
   const [intraday, setIntraday] = useState(false);
   const [selectedExchange, setSelectedExchange] = useState('NSE');
+
+  const charges = 5.85;
+  const amount = quantity * price;
+
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mouseStart, setMouseStart] = useState({ x: 0, y: 0 });
-
-  const charges = 1.95;
-  const amount = quantity * price;
 
   const startDrag = (e) => {
     setMouseStart({ x: e.clientX - position.x, y: e.clientY - position.y });
@@ -33,7 +34,7 @@ function BuyOrder() {
 
   return (
     <div
-      className="buy-order-container"
+      className="sell-order-container"
       style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
       onMouseDown={startDrag}
       onMouseMove={drag}
@@ -112,13 +113,13 @@ function BuyOrder() {
         <span>Charges ₹{charges}</span>
       </div>
 
-      {/* Buy and Cancel Buttons */}
+      {/* Sell and Cancel Buttons */}
       <div className="order-buttons">
-        <button className="buy-button">Buy</button>
+        <button className="sell-button">Sell</button>
         <button className="cancel-button">Cancel</button>
       </div>
     </div>
   );
 }
 
-export default BuyOrder;
+export default SellOrder;
