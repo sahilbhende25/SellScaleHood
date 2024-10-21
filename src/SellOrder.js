@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './SellOrder.css';
 
-function SellOrder({ sellSymbol, sellName, sellPrice }) {
+function SellOrder({ sellSymbol, sellName, sellPrice, closeModal }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(sellPrice);
   const [message, setMessage] = useState('');
@@ -70,21 +70,21 @@ function SellOrder({ sellSymbol, sellName, sellPrice }) {
             <input
               type="radio"
               name="exchange"
-              value="BSE"
-              checked={selectedExchange === 'BSE'}
-              onChange={() => setSelectedExchange('BSE')}
+              value="NYSE"
+              checked={selectedExchange === 'NYSE'}
+              onChange={() => setSelectedExchange('NYSE')}
             />
-            {sellPrice}
+            NYSE {sellPrice}
           </label>
           <label>
             <input
               type="radio"
               name="exchange"
-              value="NSE"
-              checked={selectedExchange === 'NSE'}
-              onChange={() => setSelectedExchange('NSE')}
+              value="CHX"
+              checked={selectedExchange === 'CHX'}
+              onChange={() => setSelectedExchange('CHX')}
             />
-            {sellPrice}
+            CHX {sellPrice}
           </label>
         </div>
       </div>
@@ -130,14 +130,14 @@ function SellOrder({ sellSymbol, sellName, sellPrice }) {
 
       {/* Amount and Charges */}
       <div className="order-summary">
-        <span>Amount ₹{amount.toFixed(2)}</span>
-        <span>Charges ₹{charges}</span>
+        <span>Amount ${amount.toFixed(2)}</span>
+        <span>Charges ${charges}</span>
       </div>
 
       {/* Sell and Cancel Buttons */}
       <div className="order-buttons">
         <button className="sell-button" onClick={handleSell}>Sell</button>
-        <button className="cancel-button">Cancel</button>
+        <button className="cancel-button" onClick={closeModal}>Cancel</button> {/* Close modal on cancel */}
       </div>
 
       {/* Display message */}

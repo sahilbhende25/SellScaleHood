@@ -1,0 +1,21 @@
+canvas {
+    background-color: black;
+  }
+  
+  .chart-container {
+    width: 100%; /* Full width */
+    max-width: 90%; /* Adjust the width to make the chart larger */
+    margin: 0 auto; /* Center the chart */
+    height: 70vh; /* Use viewport height to make the chart responsive */
+  }
+  
+  .marketHistory {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width of container */
+    height: 100vh; /* Full height of the viewport */
+    padding: 20px; /* Optional padding for spacing */
+    margin-top: 10vh;
+    margin-left: 15vw;
+  }

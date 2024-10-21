@@ -148,4 +148,10 @@
   .cancel-button:hover {
     background-color: #333;
   }
-  
+
+  .message {
+    text-align: center;      /* Center the message */
+    margin-top: 20px;        /* Add some space from the top */
+    font-size: 16px;         /* Optional: Adjust font size if needed */
+    color: white;            /* Optional: Set the message color */
+  }

@@ -17,7 +17,7 @@ function Portfolio({ portfolio = [] }) {
             </span>
             <div className="portfolio__price-details">
               <span className="portfolio__price">
-                ₹{stock.price !== undefined ? stock.price.toFixed(2) : '0.00'}
+                ${stock.price !== undefined ? stock.price.toFixed(2) : '0.00'}
               </span>
               <span className={`portfolio__change ${stock.change > 0 ? 'portfolio__change--positive' : 'portfolio__change--negative'}`}>
                 {stock.change !== undefined ? `${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}` : '0.00'} 
@@ -25,8 +25,8 @@ function Portfolio({ portfolio = [] }) {
               </span>
             </div>
             <div className="portfolio__buttons">
-              <button className="portfolio__btn buy-btn">B</button>
-              <button className="portfolio__btn sell-btn">S</button>
+              <button className="portfolio__btn buy-btn">Buy</button>
+              <button className="portfolio__btn sell-btn">Sell</button>
             </div>
           </div>
         ))

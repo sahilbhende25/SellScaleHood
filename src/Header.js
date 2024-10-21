@@ -5,6 +5,7 @@ import Logo from './robinhood.svg';
 import axios from 'axios';
 import BuyOrder from './BuyOrder'; // Import your BuyOrder component
 import SellOrder from './SellOrder'; // Import your SellOrder component
+import { useNavigate } from 'react-router-dom'; 
 
 function Header() {
   const [ticker, setTicker] = useState('');
@@ -15,7 +16,8 @@ function Header() {
   const [selectedSymbol, setSelectedSymbol] = useState(''); // Track selected stock symbol
   const [showBuyPopup, setShowBuyPopup] = useState(false); // Show BuyOrder pop-up
   const [showSellPopup, setShowSellPopup] = useState(false); // Show SellOrder pop-up
-
+  const navigate = useNavigate(); // Initialize navigation
+  
   const handleInputChange = (e) => {
     setTicker(e.target.value);
     fetchStockData(e.target.value);
@@ -64,16 +66,24 @@ function Header() {
     setShowBuyPopup(false); // Hide BuyOrder pop-up if visible
   };
 
-  // Function to close pop-ups
-  const closePopups = () => {
+  // Function to close BuyOrder pop-up
+  const closeBuyModal = () => {
     setShowBuyPopup(false);
+  };
+
+  // Function to close SellOrder pop-up
+  const closeSellModal = () => {
     setShowSellPopup(false);
+  };
+
+  const goToPortfolio = () => {
+    navigate('/portfolio-overview');
   };
 
   return (
     <div className="header__wrapper">
       <div className="header__logo">
-        <img src={Logo} width={25} alt="Logo" />
+        <a href='/'><img src={Logo} width={25} alt="Logo" /></a>
       </div>
       <div className="header__search">
         <div className="header__searchContainer">
@@ -94,7 +104,7 @@ function Header() {
               <li key={index}>
                 <div className="stock-info">
                   <span>{result.name} ({result.symbol})</span>
-                  <span>Price: {result.currentPrice}</span>
+                  <span>Price: ${result.currentPrice}</span>
                 </div>
                 <div className="action-buttons">
                   {/* Buy button */}
@@ -108,16 +118,15 @@ function Header() {
         )}
       </div>
       <div className="header__menuItems">
-        <a href="/">PortFolio</a>
-        <a href="/">History</a>
+      <a onClick={goToPortfolio} style={{ cursor: 'pointer' }}>Portfolio</a>
       </div>
 
       {/* Pop-up for BuyOrder component */}
-      {showBuyPopup && <BuyOrder buySymbol={symbol} buyName={name} buyPrice={price}/>
+      {showBuyPopup && <BuyOrder buySymbol={symbol} buyName={name} buyPrice={price} closeModal={closeBuyModal} />
       }
 
       {/* Pop-up for SellOrder component */}
-      {showSellPopup && <SellOrder sellSymbol={symbol} sellName={name} sellPrice={price}/>}
+      {showSellPopup && <SellOrder sellSymbol={symbol} sellName={name} sellPrice={price} closeModal={closeSellModal} />}
     </div>
   );
 }

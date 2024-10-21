@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './BuyOrder.css';
 
-function BuyOrder({buySymbol,buyName,buyPrice}) {
+function BuyOrder({ buySymbol, buyName, buyPrice, closeModal }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(buyPrice);
+  const [message, setMessage] = useState('');
   const [intraday, setIntraday] = useState(false);
-  const [selectedExchange, setSelectedExchange] = useState('NSE');
+  const [selectedExchange, setSelectedExchange] = useState('NYSE');
+
+  const charges = 5.85;
+  const amount = quantity * price;
+
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 500, y: 500 });
   const [mouseStart, setMouseStart] = useState({ x: 0, y: 0 });
-
-  const charges = 1.95;
-  const amount = quantity * price;
 
   const startDrag = (e) => {
     setMouseStart({ x: e.clientX - position.x, y: e.clientY - position.y });
@@ -31,6 +34,25 @@ function BuyOrder({buySymbol,buyName,buyPrice}) {
     setIsDragging(false);
   };
 
+  // Handle Buy action
+  const handleBuy = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/buy_stock', {
+        ticker: buySymbol,
+        quantity: quantity,
+        price: price,
+      });
+
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage('An error occurred');
+      }
+    }
+  };
+
   return (
     <div
       className="buy-order-container"
@@ -42,27 +64,27 @@ function BuyOrder({buySymbol,buyName,buyPrice}) {
     >
       {/* Stock Info */}
       <div className="stock-info">
-        <h3>{buyName}</h3>
+        <h3>{buySymbol}</h3>
         <div className="exchange">
           <label>
             <input
               type="radio"
               name="exchange"
-              value="BSE"
-              checked={selectedExchange === 'BSE'}
-              onChange={() => setSelectedExchange('BSE')}
+              value="NYSE"
+              checked={selectedExchange === 'NYSE'}
+              onChange={() => setSelectedExchange('NYSE')}
             />
-            BSE ₹1,878.85
+            NYSE {buyPrice}
           </label>
           <label>
             <input
               type="radio"
               name="exchange"
-              value="NSE"
-              checked={selectedExchange === 'NSE'}
-              onChange={() => setSelectedExchange('NSE')}
+              value="CHX"
+              checked={selectedExchange === 'CHX'}
+              onChange={() => setSelectedExchange('CHX')}
             />
-            NSE ₹1,879.60
+            CHX {buyPrice}
           </label>
         </div>
       </div>
@@ -108,15 +130,18 @@ function BuyOrder({buySymbol,buyName,buyPrice}) {
 
       {/* Amount and Charges */}
       <div className="order-summary">
-        <span>Amount ₹{amount.toFixed(2)}</span>
-        <span>Charges ₹{charges}</span>
+        <span>Amount ${amount.toFixed(2)}</span>
+        <span>Charges ${charges}</span>
       </div>
 
       {/* Buy and Cancel Buttons */}
       <div className="order-buttons">
-        <button className="buy-button">Buy</button>
-        <button className="cancel-button">Cancel</button>
+        <button className="buy-button" onClick={handleBuy}>Buy</button>
+        <button className="cancel-button" onClick={closeModal}>Cancel</button>
       </div>
+
+      {/* Display message */}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 }
