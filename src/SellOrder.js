@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './SellOrder.css';
 
-function SellOrder({sellSymbol,sellName,sellPrice}) {
+function SellOrder({ sellSymbol, sellName, sellPrice }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(sellPrice);
+  const [message, setMessage] = useState('');
   const [intraday, setIntraday] = useState(false);
   const [selectedExchange, setSelectedExchange] = useState('NSE');
 
@@ -30,6 +32,25 @@ function SellOrder({sellSymbol,sellName,sellPrice}) {
 
   const stopDrag = () => {
     setIsDragging(false);
+  };
+
+  // Handle Sell action
+  const handleSell = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/sell_stock', {
+        ticker: sellSymbol,
+        quantity: quantity,
+        price: price,
+      });
+
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage('An error occurred');
+      }
+    }
   };
 
   return (
@@ -115,9 +136,12 @@ function SellOrder({sellSymbol,sellName,sellPrice}) {
 
       {/* Sell and Cancel Buttons */}
       <div className="order-buttons">
-        <button className="sell-button">Sell</button>
+        <button className="sell-button" onClick={handleSell}>Sell</button>
         <button className="cancel-button">Cancel</button>
       </div>
+
+      {/* Display message */}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 }
